@@ -1,9 +1,8 @@
 pipeline {
     agent {
         kubernetes {
-            label 'kubeagent'
             podTemplate {
-                label 'maven'
+                label 'kubeagent'
                 containerTemplate {
                     name 'maven'
                     image 'maven:3-alpine'
