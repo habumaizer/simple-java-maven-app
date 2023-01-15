@@ -1,20 +1,24 @@
 pipeline {
     agent {
-        label 'kubeagent'
         kubernetes {
             podTemplate {
+                label 'maven'
                 containerTemplate {
                     name 'maven'
                     image 'maven:3-alpine'
+                }
+                containerTemplate {
+                    name 'jnlp'
+                    image 'jenkins/inbound-agent:latest'
                 }
             }
         }
     }
     stages {
         stage('Build') {
-            steps {
-                sh 'mvn -B -DskipTests clean package'
-            }
+                container('maven') {
+                    sh 'mvn -B -DskipTests clean package'
+                }
         }
         stage('Test') {
             steps {
