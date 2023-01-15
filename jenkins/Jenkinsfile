@@ -1,7 +1,6 @@
 pipeline {
     agent {
         kubernetes {
-            podTemplate {
                 containerTemplate {
                     name 'maven'
                     image 'maven:3-alpine'
@@ -11,7 +10,6 @@ pipeline {
                     image 'jenkins/inbound-agent:latest'
                 }
             }
-        }
     }
     stages {
         stage('Build') {
