@@ -1,6 +1,8 @@
 pipeline {
     agent {
         kubernetes {
+            podTemplate {
+                label 'kubeagent'
                 containerTemplate {
                     name 'maven'
                     image 'maven:3-alpine'
@@ -11,6 +13,7 @@ pipeline {
                 }
             }
     }
+  }
     stages {
         stage('Build') {
             steps {
